@@ -4,13 +4,17 @@
 <?import javafx.scene.layout.*?>
 
 <VBox alignment="CENTER" prefHeight="581.0" prefWidth="780.0" spacing="10" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.exammanager.ExamManagerController">
-   <Label text="Choose category:" />
-        <ComboBox fx:id="categoryComboBox" prefWidth="150" />
-        <TableView fx:id="questionTable" prefHeight="400" prefWidth="600" />
-        <HBox spacing="10">
-            <Button fx:id="addButton" text="Add Question" />
-            <Button fx:id="editButton" text="Edit Question" />
-            <Button fx:id="deleteButton" text="Delete Question" />
-        </HBox>
-        <Button fx:id="assembleExamButton" text="Create Exam" />
-    </VBox>
+    <Label text="Choose category:" />
+    <ComboBox fx:id="categoryComboBox" prefWidth="150" />
+    <TableView fx:id="questionTable" prefHeight="400" prefWidth="600">
+        <columns>
+            <TableColumn fx:id="questionColumn" text="Questions" />
+        </columns>
+    </TableView>
+    <HBox spacing="10">
+        <Button fx:id="addButton" text="Add Question" />
+        <Button fx:id="editButton" text="Edit Question" />
+        <Button fx:id="deleteButton" text="Delete Question" />
+    </HBox>
+    <Button fx:id="assembleExamButton" text="Create Exam" />
+</VBox>

@@ -1,4 +1,7 @@
 package com.example.exammanager;
+import java.util.ArrayList;
+import java.util.List;
+import java.sql.*;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -9,14 +12,16 @@ public class DatabaseConnection {
 
     public void connect() {
         try {
-            connection = DriverManager.getConnection(db);
-            System.out.println("Connected successfully!");
+            if(connection == null || connection.isClosed()) {
+                connection = DriverManager.getConnection(db);
+                System.out.println("Connected successfully!");
+            }
         } catch (SQLException e) {
             e.printStackTrace();
             System.out.println("Failed to connect to the database.");
         }
     }
-
+/*
     public void disconnect() {
         if (connection != null) {
             try {
@@ -25,5 +30,51 @@ public class DatabaseConnection {
                 e.printStackTrace();
             }
         }
+
+*/
+
+
+        public List<String> getQuestions() {
+            List<String> questions = new ArrayList<>();
+            try (Statement stmt = connection.createStatement();
+                 ResultSet rs = stmt.executeQuery("SELECT question_text FROM Questions")) {
+                while (rs.next()) {
+                    questions.add(rs.getString("question_text"));
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+            return questions;
+        }
+
+        public List<String> getCategories() {
+            List<String> categories = new ArrayList<>();
+            try (Statement stmt = connection.createStatement();
+                 ResultSet rs = stmt.executeQuery("SELECT category_name FROM Categories")) {
+                while (rs.next()) {
+                    categories.add(rs.getString("category_name"));
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+            return categories;
+        }
+
+    public List<String> getQuestionsByCategory(String category) {
+        List<String> questions = new ArrayList<>();
+        String query = "SELECT question_text FROM Questions WHERE category_id = (SELECT category_id FROM Categories WHERE category_name = ?)";
+
+        try (PreparedStatement pstmt = connection.prepareStatement(query)) {
+            pstmt.setString(1, category);
+            ResultSet rs = pstmt.executeQuery();
+            while (rs.next()) {
+                questions.add(rs.getString("question_text"));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return questions;
     }
-}
+
+    }
+
