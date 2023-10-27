@@ -1,20 +1,71 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Line?>
 
-<VBox alignment="CENTER" prefHeight="581.0" prefWidth="780.0" spacing="10" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.exammanager.ExamManagerController">
-    <Label text="Choose category:" />
+<VBox alignment="CENTER" prefHeight="700.0" prefWidth="800.0" spacing="10" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.exammanager.ExamManagerController">
+
+    <Label text="New Question:" />
+    <TextField fx:id="newQuestionTextField" />
+    <HBox alignment="TOP_CENTER" prefHeight="40.0" prefWidth="800.0">
+        <children>
+            <Label text="   Questions points:    " />
+            <ChoiceBox prefWidth="150.0" />
+            <Label text="        Category:     " />
+            <ComboBox prefWidth="150.0" />
+            <Button fx:id="addToCategoryButton" alignment="TOP_LEFT" text="Add Question " />
+        </children>
+    </HBox>
+    <Line endX="100.0" startX="-717.3975219726562" startY="1.3928931951522827" />
+
+    <Label text="Choose Category:" />
+    <VBox alignment="CENTER" prefHeight="0.0" prefWidth="780.0" />
     <ComboBox fx:id="categoryComboBox" prefWidth="150" />
-    <TableView fx:id="questionTable" prefHeight="400" prefWidth="600">
+
+    <TableView fx:id="questionTable" prefHeight="145.0" prefWidth="780.0">
         <columns>
-            <TableColumn fx:id="questionColumn" text="Questions" />
+            <TableColumn fx:id="questionColumn" prefWidth="730.0" text="                 Questions" />
+            <TableColumn fx:id="questionColumn1" prefWidth="730.0" text="Points" />
         </columns>
     </TableView>
-    <HBox spacing="10">
-        <Button fx:id="addButton" text="Add Question" />
+
+    <HBox alignment="TOP_CENTER" prefHeight="43.0" prefWidth="780.0" spacing="10">
         <Button fx:id="editButton" text="Edit Question" />
         <Button fx:id="deleteButton" text="Delete Question" />
+        <Label text="Exam:  " />
+        <ComboBox prefWidth="150.0" />
+
+        <Button fx:id="addQuestionToExamButton" text="Add Question to Exam" />
     </HBox>
-    <Button fx:id="assembleExamButton" text="Create Exam" />
+    <Line endX="100.0" startX="-721.8207397460938" startY="2.1928749084472656" />
+
+    <Label text="Choose Exam:" />
+    <ComboBox fx:id="examComboBox" prefWidth="150.0" />
+
+    <VBox alignment="CENTER" prefHeight="36.0" prefWidth="780.0">
+        <children>
+            <TableView fx:id="examTable" prefHeight="192.0" prefWidth="800.0">
+                <columns>
+                    <TableColumn fx:id="examColumn" prefWidth="730.0" text="                  Exams" />
+                </columns>
+            </TableView>
+        </children>
+    </VBox>
+    <HBox alignment="TOP_CENTER" prefHeight="49.0" prefWidth="800.0">
+        <children>
+            <Label text="Total points:  " />
+            <ChoiceBox prefWidth="150.0" />
+            <Label text="       Number of groups:      " />
+            <ChoiceBox prefWidth="150.0" />
+            <Button graphicTextGap="8.0" mnemonicParsing="false" text="Generate Exam" />
+        </children>
+    </HBox>
 </VBox>
