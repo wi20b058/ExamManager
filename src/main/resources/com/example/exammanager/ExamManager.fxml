@@ -18,30 +18,29 @@
             <tabs>
                 <Tab text="Question Creation">
                     <content>
-                        <VBox alignment="CENTER" prefHeight="765.0" prefWidth="892.0" spacing="10">
-                  <Label alignment="CENTER" contentDisplay="TOP" prefHeight="67.0" prefWidth="442.0" text="Create a new question" textAlignment="CENTER" textFill="#6100fc" textOverrun="LEADING_ELLIPSIS" underline="true" wrapText="true">
+                        <VBox alignment="CENTER" spacing="10">
+                  <Label alignment="CENTER" contentDisplay="TOP" prefHeight="67.0" prefWidth="442.0" text="Create a new question" textAlignment="CENTER" textFill="#6100fc" underline="true" wrapText="true">
                      <font>
                         <Font size="24.0" />
                      </font>
                   </Label>
                             <Label text="Enter new question:" />
-                            <TextField fx:id="newQuestionTextField" prefHeight="131.0" prefWidth="800.0" promptText="Enter question here" />
-                            <HBox alignment="CENTER" spacing="10">
+                            <TextField fx:id="newQuestionTextField" prefHeight="146.0" prefWidth="850.0" promptText="Enter question here" />
+                            <HBox spacing="10">
                                 <Label text="Question Points:" />
-                                <ChoiceBox fx:id="pointsChoiceBox" prefWidth="150.0" />
+                                <ChoiceBox fx:id="pointsChoiceBox" />
                             </HBox>
-                  <HBox alignment="CENTER" layoutX="10.0" layoutY="456.0" spacing="10">
-                     <children>
-                                   <Label text="Choose existent category:" />
-                                   <ComboBox fx:id="categoryComboBox" prefWidth="150.0" />
-                        <Label text="or enter new category name:" />
-                        <TextField />
-                                   <Button fx:id="addToCategoryButton" prefWidth="151.0" text="Add question to category" />
-                     </children>
-                  </HBox>
+                            <HBox spacing="10">
+                                <Label text="Choose existing category:" />
+                                <ComboBox fx:id="categoryComboBox" />
+                                <Label text="or enter new category name:" />
+                                <TextField fx:id="newCategoryTextField" />
+                                <Button onAction="#handleAddQuestionToCategory" text="Add question to category" />
+                            </HBox>
                         </VBox>
                     </content>
                 </Tab>
+
                 <Tab text="Question Management">
                     <content>
                         <VBox alignment="CENTER" spacing="10">

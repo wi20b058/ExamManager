@@ -21,6 +21,31 @@ public class DatabaseConnection {
             System.out.println("Failed to connect to the database.");
         }
     }
+
+
+    public void addCategory(String categoryName) {
+        String sql = "INSERT INTO Categories (category_name) SELECT ? WHERE NOT EXISTS (SELECT 1 FROM Categories WHERE category_name = ?)";
+        try (PreparedStatement pstmt = connection.prepareStatement(sql)) {
+            pstmt.setString(1, categoryName);
+            pstmt.setString(2, categoryName);
+            pstmt.executeUpdate();
+        } catch (SQLException e) {
+            System.out.println("Error adding category: " + e.getMessage());
+        }
+    }
+
+    // Method to add a new question to the database
+    public void addQuestion(String questionText, int points, String categoryName) {
+        String sql = "INSERT INTO Questions (question_text, question_points, category_id) VALUES (?, ?, (SELECT category_id FROM Categories WHERE category_name = ?))";
+        try (PreparedStatement pstmt = connection.prepareStatement(sql)) {
+            pstmt.setString(1, questionText);
+            pstmt.setInt(2, points);
+            pstmt.setString(3, categoryName);
+            pstmt.executeUpdate();
+        } catch (SQLException e) {
+            System.out.println("Error adding question: " + e.getMessage());
+        }
+    }
 /*
     public void disconnect() {
         if (connection != null) {
@@ -76,5 +101,17 @@ public class DatabaseConnection {
         return questions;
     }
 
+
+
+    // Close the database connection
+    public void disconnect() {
+        if (connection != null) {
+            try {
+                connection.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+    }
     }
 
