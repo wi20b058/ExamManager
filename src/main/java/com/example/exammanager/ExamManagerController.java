@@ -1,6 +1,7 @@
 package com.example.exammanager;
-
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TableView;
 import javafx.scene.control.Button;
@@ -8,17 +9,47 @@ import javafx.scene.control.TableColumn;
 import javafx.collections.ObservableList;
 import javafx.collections.FXCollections;
 import javafx.beans.property.SimpleStringProperty;
+import javafx.scene.layout.BorderPane;
+
+import java.io.IOException;
+import java.util.Objects;
 
 public class ExamManagerController {
+    @FXML public BorderPane mainLayout;
+    public ComboBox categoryComboBox2;
 
     @FXML
-    private ComboBox<String> categoryComboBox;
+    private void openQuestionCreation() {
+        loadPage("QuestionCreation.fxml");
+    }
 
     @FXML
-    private TableView<String> questionTable;
+    private void openQuestionManagement() {
+        loadPage("QuestionManagement.fxml");
+    }
 
     @FXML
-    private TableColumn<String, String> questionColumn;
+    private void openExamManagement() {
+        loadPage("ExamManagement.fxml");
+    }
+
+    private void loadPage(String fxml) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource(fxml));
+            Node page = loader.load();
+            mainLayout.setCenter(page);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+    @FXML
+    public ComboBox<String> categoryComboBox;
+
+    @FXML
+    public TableView<String> questionTable;
+
+    @FXML
+    public TableColumn<String, String> questionColumn;
 
     public void initialize() {
         DatabaseConnection dbConnection = new DatabaseConnection();
@@ -48,27 +79,58 @@ public class ExamManagerController {
     }
 
     @FXML
-    private Button addButton, editButton, deleteButton, createExamButton;
-
-    /*
+    public Button addButton, editButton, deleteButton, createExamButton;
 
 
-    private void addQuestion() {
+    @FXML
+    protected void addNewQuestion() {}
+/*
+        String questionText = newQuestionTextField.getText();
+        String points = pointsChoiceBox.getValue();
+        String category = categoryComboBox.getValue();
 
+        DatabaseConnection dbConnection = new DatabaseConnection();
+        dbConnection.connect();
+        dbConnection.addQuestion(questionText, points, category);
+        dbConnection.disconnect();
+
+
+        updateQuestionTable(category);
+
+
+    @FXML
+    protected void editSelectedQuestion() {
+
+        String selectedQuestion = ...;
+        String newQuestionText = ...;
+
+        DatabaseConnection dbConnection = new DatabaseConnection();
+        dbConnection.connect();
+        dbConnection.updateQuestion(selectedQuestion, newQuestionText);
+        dbConnection.disconnect();
     }
 
-    private void editSelectedQuestion() {
+    @FXML
+    protected void deleteSelectedQuestion() {
+        String selectedQuestion = ...;
 
+        DatabaseConnection dbConnection = new DatabaseConnection();
+        dbConnection.connect();
+        dbConnection.deleteQuestion(selectedQuestion);
+        dbConnection.disconnect();
     }
 
-    private void deleteSelectedQuestion() {
+    @FXML
+    protected void addQuestionToExam() {
+        String selectedQuestion = ...;
+        String selectedExam = ...;
 
+        DatabaseConnection dbConnection = new DatabaseConnection();
+        dbConnection.connect();
+        dbConnection.addQuestionToExam(selectedQuestion, selectedExam);
+        dbConnection.disconnect();
     }
 
-    private void createExam() {
-
-    }
-
-     */
+*/
 
 }
